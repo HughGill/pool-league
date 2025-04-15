@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fixture Generator</title>
+</head>
+<body>
+    <h2>Enter Teams</h2>
+    <div>
+        <h3>Division One</h3>
+        <textarea id="div_one" rows="6" cols="30" placeholder="One team per line"></textarea>
+    </div>
+    <div>
+        <h3>Division Two</h3>
+        <textarea id="div_two" rows="6" cols="30" placeholder="One team per line"></textarea>
+    </div>
+    <button onclick="generateFixtures()">Generate Fixtures</button>
+
+    <h2>Fixtures</h2>
+    <div id="results"></div>
+
+    <script>
+    function generateFixtures() {
+        const divOne = document.getElementById('div_one').value.trim().split('\n').map(x => x.trim());
+        const divTwo = document.getElementById('div_two').value.trim().split('\n').map(x => x.trim());
+
+        fetch('/generate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ div_one: divOne, div_two: divTwo }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            const results = document.getElementById('results');
+            results.innerHTML = '';
+
+            ['div_one', 'div_two'].forEach(div => {
+                const title = document.createElement('h3');
+                title.innerText = `Fixtures for ${div.replace('_', ' ')}`;
+                results.appendChild(title);
+
+                data[div].forEach((round, roundIndex) => {
+                    const roundTitle = document.createElement('h4');
+                    roundTitle.innerText = `Round ${roundIndex + 1}`;
+                    results.appendChild(roundTitle);
+
+                    const list = document.createElement('ul');
+                    round.forEach(match => {
+                        const item = document.createElement('li');
+                        item.innerText = `${match[0]} vs ${match[1]}`;
+                        list.appendChild(item);
+                    });
+                    results.appendChild(list);
+                });
+            });
+        });
+    }
+</script>
+
+</body>
+</html>
