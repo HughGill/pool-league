@@ -17,6 +17,8 @@
 
     <h2>Fixtures</h2>
     <div id="results"></div>
+    <button onclick="downloadCSV()">Download CSV</button>
+
 
     <script>
     function generateFixtures() {
@@ -56,6 +58,27 @@
             });
         });
     }
+
+    function downloadCSV() {
+    if (!latestFixtures) return alert("Generate fixtures first!");
+
+    let csvContent = "Division,Round,Home,Away,Date,Venue,Status\n";
+
+    ["div_one", "div_two"].forEach(division => {
+        latestFixtures[division].forEach((round, roundIndex) => {
+            round.forEach(match => {
+                csvContent += `${division},${roundIndex + 1},"${match.home}","${match.away}","${match.date || 'TBD'}","${match.venue || 'TBD'}",${match.status}\n`;
+            });
+        });
+    });
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.setAttribute("href", url);
+    a.setAttribute("download", "fixtures.csv");
+    a.click();
+}
 </script>
 
 </body>
