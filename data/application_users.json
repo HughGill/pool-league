@@ -1,0 +1,14 @@
+[
+  {
+    "id": "",
+    "given-name": "",
+    "surname": "",
+    "email": "",
+    "full-name": "",
+    "password": "",
+    "isMod": false,
+    "isAdmin": false,
+    "isUser": true,
+    "isBlocked": false
+  }
+]
