@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify
 import json
 
-tables_bp = Blueprint('tables', __name__, url_prefix='/api')
+tables_bp = Blueprint('tables', __name__, url_prefix='/server-api')
 
 @tables_bp.route('/tables')
 def get_tables():

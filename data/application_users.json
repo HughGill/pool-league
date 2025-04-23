@@ -1,14 +1,16 @@
-[
-  {
-    "id": "",
-    "given-name": "",
-    "surname": "",
-    "email": "",
-    "full-name": "",
-    "password": "",
-    "isMod": false,
-    "isAdmin": false,
-    "isUser": true,
-    "isBlocked": false
-  }
-]
+{
+  "users": [
+    {
+      "id": "NorthInishowenPoolLeague00001",
+      "given-name": "Pool League",
+      "surname": "Superuser",
+      "email": "northpoolleague@me.com",
+      "full-name": "Pool League Superuser",
+      "password": "$2y$10$n/agDCU9UIP8MP9r3TpVdeit6bBGoB437q/38KZomw2uoZ6qDyfYC",
+      "isMod": false,
+      "isAdmin": true,
+      "isUser": false,
+      "isBlocked": false
+    }
+  ]
+}

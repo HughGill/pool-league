@@ -2,9 +2,9 @@ from flask import Flask, request, Blueprint, jsonify
 import json
 import random
 
-fixtures_bp = Blueprint('fixtures', __name__, url_prefix='/api')
+fixtures_bp = Blueprint('fixtures',  __name__, url_prefix='/server-api')
 
-FIXTURE_FILE = 'fixtures.json'
+FIXTURE_FILE = 'data/fixtures.json'
 
 
 def round_robin(teams):
@@ -51,7 +51,7 @@ def generate_fixtures(division):
 
 
 
-@fixtures_bp.route('/generate', methods=['POST'])
+@fixtures_bp.route('/generate-fixtures', methods=['POST'])
 def generate():
     div_one = request.json.get('div_one', [])
     div_two = request.json.get('div_two', [])
