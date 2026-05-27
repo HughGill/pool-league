@@ -131,6 +131,14 @@ const Navbar = () => {
                     Add Results
                   </Link>
                 )}
+                <Link
+                  href="/about"
+                  className={`${
+                    pathname === "/about" ? "bg-black" : ""
+                  } text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
+                >
+                  About
+                </Link>
               </div>
             </div>
           </div>
@@ -224,14 +232,14 @@ const Navbar = () => {
                       Your Profile
                     </Link>
                     <Link
-                      href="/properties/saved"
+                      href="/settings"
                       className="block px-4 py-2 text-sm text-gray-700"
                       role="menuitem"
                       tabIndex="-1"
                       id="user-menu-item-2"
                       onClick={() => setIsProfileMenuOpen(false)}
                     >
-                      Saved Properties
+                      Settings
                     </Link>
                     <button
                       onClick={() => {
@@ -266,23 +274,37 @@ const Navbar = () => {
               Home
             </Link>
             <Link
-              href="/properties"
+              href="/fixtures"
               className={`${
-                pathname === "/properties" ? "bg-black" : ""
+                pathname === "/fixtures" ? "bg-black" : ""
               } text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base, font-medium`}
             >
-              Properties
+              Fixtures
             </Link>
-            {session && (
-              <Link
-                href="/properties/add"
-                className={`${
-                  pathname === "/properties/add" ? "bg-black" : ""
-                } text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base, font-medium`}
-              >
-                Add Property
-              </Link>
-            )}
+            <Link
+              href="/tables"
+              className={`${
+                pathname === "/tables" ? "bg-black" : ""
+              } text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base, font-medium`}
+            >
+              Tables
+            </Link>
+            <Link
+              href="/results"
+              className={`${
+                pathname === "/results" ? "bg-black" : ""
+              } text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base, font-medium`}
+            >
+              Results
+            </Link>
+            <Link
+              href="/about"
+              className={`${
+                pathname === "/about" ? "bg-black" : ""
+              } text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base, font-medium`}
+            >
+              About
+            </Link>
             {!session && (
               <button
                 onClick={() => router.push("/auth/login")}

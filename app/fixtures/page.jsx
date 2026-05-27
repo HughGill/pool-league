@@ -1,5 +1,5 @@
-import ListFixtures from "@/components/ListFixtures";
+import Fixtures from "@/components/Fixtures";
 
 export default function FixturesPage() {
-	return <ListFixtures />
+  return <Fixtures />;
 }

@@ -1,79 +1,56 @@
-type Game = {
-  player_home: string;
-  player_away: string;
-  home_wins: number; // up to 2
-  away_wins: number; // up to 2
-};
+"use client";
+import { useEffect, useState } from "react";
 
-type Fixture = {
-  home: string;
-  away: string;
-  games: Game[]; // 5 games per match
-  date: string;
-  venue: string;
-  status: "played" | "scheduled" | "postponed";
-};
+const ListLeagueTable = () => {
+  const [tables, setTables] = useState({});
 
-type TableRow = {
-  team: string;
-  matchesPlayed: number;
-  framesWon: number;
-  framesLost: number;
-  frameDifference: number;
-};
+  useEffect(() => {
+    fetch("/api/tables")
+      .then((res) => res.json())
+      .then(setTables)
+      .catch(console.error);
+  }, []);
 
-function generatePoolLeagueTable(fixtures: Fixture[][]): TableRow[] {
-  const table: Record<string, TableRow> = {};
-
-  fixtures.flat().forEach(match => {
-    if (match.status !== "played") return;
-
-    const { home, away, games } = match;
-
-    if (!table[home]) {
-      table[home] = {
-        team: home,
-        matchesPlayed: 0,
-        framesWon: 0,
-        framesLost: 0,
-        frameDifference: 0,
-      };
-    }
-    if (!table[away]) {
-      table[away] = {
-        team: away,
-        matchesPlayed: 0,
-        framesWon: 0,
-        framesLost: 0,
-        frameDifference: 0,
-      };
-    }
-
-    let homeTotal = 0;
-    let awayTotal = 0;
-
-    games.forEach(game => {
-      homeTotal += game.home_wins;
-      awayTotal += game.away_wins;
-    });
-
-    table[home].matchesPlayed += 1;
-    table[away].matchesPlayed += 1;
-
-    table[home].framesWon += homeTotal;
-    table[home].framesLost += awayTotal;
-
-    table[away].framesWon += awayTotal;
-    table[away].framesLost += homeTotal;
-  });
-
-  // Frame difference
-  Object.values(table).forEach(team => {
-    team.frameDifference = team.framesWon - team.framesLost;
-  });
-
-  return Object.values(table).sort((a, b) =>
-    b.framesWon - a.framesWon ||
-    b.frameDifference - a.frameDifference
+  const renderTable = (rows, name) => (
+    <div className="mb-10">
+      <h2 className="text-2xl font-semibold mb-4">{name}</h2>
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white border border-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-4 py-2 border-b text-left">Pos</th>
+              <th className="px-4 py-2 border-b text-left">Team</th>
+              <th className="px-4 py-2 border-b text-center">P</th>
+              <th className="px-4 py-2 border-b text-center font-bold">Pts</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, index) => (
+              <tr key={index} className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                <td className="px-4 py-2 border-b text-left">{index + 1}</td>
+                <td className="px-4 py-2 border-b text-left font-medium">{row.team}</td>
+                <td className="px-4 py-2 border-b text-center">{row.played}</td>
+                <td className="px-4 py-2 border-b text-center font-bold">{row.points}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
-}
+
+  return (
+    <div>
+      {Object.keys(tables).length === 0 ? (
+        <p>Loading table...</p>
+      ) : (
+        <>
+          {tables.div_one && renderTable(tables.div_one, "Division One")}
+          {tables.div_two && renderTable(tables.div_two, "Division Two")}
+        </>
+      )}
+    </div>
+  );
+};
+
+export default ListLeagueTable;
