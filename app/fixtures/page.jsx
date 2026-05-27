@@ -1,5 +1,5 @@
-import CoursesAdvertisement from "@/components/ListFixtures";
+import ListFixtures from "@/components/ListFixtures";
 
-export default const FixturesPage() {
+export default function FixturesPage() {
 	return <ListFixtures />
 }

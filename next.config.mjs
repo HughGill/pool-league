@@ -15,15 +15,6 @@ const nextConfig = {
     ],
   },
   reactStrictMode: true,
-
-  async rewrites() {
-    return [
-      {
-        source: "/server-api/:path*", // Requests to /api/*
-        destination: "http://localhost:5000/server-api/:path*", // Proxies to Flask
-      },
-    ];
-  },
 };
 
 export default nextConfig;
