@@ -8,6 +8,50 @@ __pycache__/
 
 .next
 
+# Dependency Directories (Massive token drains)
+node_modules/
+bower_components/
+jspm_packages/
+.pnpm-store/
+.uv/
+
+# Environment and Secret Files
+.env
+.env.*
+*.pem
+*.key
+.git/
+.flaskenv
+
+# Build and Output Artifacts (Do not let AI index compiled code)
+dist/
+build/
+out/
+.next/
+.nuxt/
+target/
+bin/
+obj/
+
+# Cache and System Logs
+.cache/
+.npm/
+*.log
+.eslintcache
+.prettiercache
+.DS_Store
+Thumbs.db
+
+# Heavy Media and Assets (AI cannot read raw videos/images as text)
+*.mp4
+*.mov
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.ico
+
 # Distribution / packaging
 .Python
 build/
@@ -181,3 +225,12 @@ cython_debug/
 
 ./node_modules
 node_modules
+
+.antigravityignore
+.dcignore
+.qwenignore
+.ignore
+AGENTS.md
+GEMINI.md
+QWEN.md
+CLAUDE.md
